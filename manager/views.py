@@ -1,14 +1,16 @@
 from django.shortcuts import redirect, render
-from .forms import Manager_Registration_form, Manager_login_form
+from .forms import ManagerRegistrationForm, ManagerLoginForm
 from django.contrib.auth.models import User
 from django.contrib import messages
 
 
 def manager_register_view(request):
-    form = Manager_Registration_form(request.POST or None)
+    ''' this function registered manager with the help of admin '''
+
+    form = ManagerRegistrationForm(request.POST or None)
     if form.is_valid():
-        admin_password = request.POST.get('Admin_Password')
-        name = request.POST.get('Manager_Name')
+        admin_password = request.POST.get('admin_password')
+        name = request.POST.get('manager_name')
         password = request.POST.get('password1')
         user = User.objects.get(username='achal')  # achal is superuser
         if user.check_password(admin_password):
@@ -18,17 +20,19 @@ def manager_register_view(request):
                     )
             new_user.save()
             messages.success(request, 'New Manager account created')
-            form = Manager_Registration_form()
+            form = ManagerRegistrationForm()
         else:
             messages.error(request, 'Admin Password Wrong')
     return render(request, 'Manager/Register.html', {'form': form})
 
 
 def manager_login_view(request):
-    form = Manager_login_form(request.POST or None)
+    ''' this function login the user '''
+
+    form = ManagerLoginForm(request.POST or None)
     if form.is_valid():
-        name = request.POST.get('Book_Manager_Name')
-        password = request.POST.get('Password')
+        name = request.POST.get('book_manager_name')
+        password = request.POST.get('password')
         user = User.objects.get(username=name)
         if user.check_password(password):
             return redirect('choice')
@@ -38,4 +42,6 @@ def manager_login_view(request):
 
 
 def choice_view(request):
+    ''' this function give the option to manger, create or read '''
+    
     return render(request, 'Manager/choice.html', {})
