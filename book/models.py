@@ -2,6 +2,8 @@ from django.db import models
 
 
 class Books(models.Model):
+    ''' Create a model Books '''
+    
     book_name = models.CharField(max_length=20)
     writter = models.CharField(max_length=30)
     published_year = models.DateField()
