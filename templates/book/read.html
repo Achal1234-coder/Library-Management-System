@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+        </title>
+    </head>
+    <body>
+        <h1>All Books in library</h1>
+        <form method="POST">{% csrf_token %}
+            {% for book in Book_obj %}
+            <br>
+                {{ book.Book_Name }}
+                {{ book.Writter }}
+                {{ book.Published_Year }}
+                {{ book.No_of_Book}}
+            {% endfor %}
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </form>
+    </body>
+</html>
