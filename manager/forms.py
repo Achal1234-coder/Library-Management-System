@@ -4,6 +4,8 @@ from django import forms
 
 
 class ManagerRegistrationForm(UserCreationForm):
+    ''' Make a form ManagerRegistrationForm '''
+
     admin_password = forms.CharField(widget=forms.PasswordInput())
     manager_name = forms.CharField(max_length=30)
 
@@ -13,5 +15,7 @@ class ManagerRegistrationForm(UserCreationForm):
 
 
 class ManagerLoginForm(forms.Form):
+    ''' Make a form ManagerLoginForm'''
+    
     book_manager_name = forms.CharField(max_length=30)
     password = forms.CharField(widget=forms.PasswordInput())
