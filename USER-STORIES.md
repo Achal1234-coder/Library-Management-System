@@ -24,5 +24,6 @@ Book Manager :- The person who manage a book in library.
 ```
 * As a Student *ISBT search a book.
 * As a Book Manager *ISBT return a book.
+* Page Restriction
 ```
 **Note**:- *ISBT = I should be able to
