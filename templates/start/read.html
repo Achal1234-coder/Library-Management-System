@@ -1,0 +1,52 @@
+{% extends 'start/home.html' %}
+
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/read-manager.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="main">
+
+    <div class="flex">
+        <h3 class="text text-info">{{ request.user }}</h3>
+        <form method="POST" action="{% url 'start:logout' %}">{% csrf_token %}
+            <input type="submit" value="LogOut" class="btn btn-info">
+        </form>
+        <a href="{% url 'start:issued' %}"><button type="button" class="btn btn-info">Issued Book</button></a>
+    </div>
+
+    <h1>All Books in library</h1>
+
+    <form name="myform" method="GET" action="{% url 'start:search' %}" class=" forms">
+        <input type="text" name="book_search" placeholder="Search" class="search">
+        <button class="btn btn-success" type="submit">Search</button>
+    </form>
+
+    <table class="table table-striped issue-table">
+        <thead>
+            <tr>
+                <th>Book Name</th>
+                <th>Book Author</th>
+                <th>Book Id</th>
+                <th>No of book</th>
+                <th>Image</th>
+            </tr>
+        </thead>
+        {% for book in book_obj %}
+        <tbody>
+            <tr>
+                <td>{{ book.book_name }}</td>
+                <td>{{ book.author }}</td>
+                <td>{{ book.book_id }}</td>
+                <td class="about-book"><img class="img" src="{{ book.image_of_book.url }}" alt="Book image"></td>
+                <td>{{ book.no_of_book}}</td>
+            </tr>
+        </tbody>
+        {% endfor %}
+    </table>
+
+</div>
+{% endblock %}

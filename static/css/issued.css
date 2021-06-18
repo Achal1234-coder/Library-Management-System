@@ -1,0 +1,15 @@
+.head {
+
+    margin-top: 50px;
+    text-align: center;
+}
+
+.flex {
+    display: flex;
+    gap: 15px;
+    margin-left: 20px;
+}
+.main {
+    margin-top: 15vh;
+    text-align: center;
+}

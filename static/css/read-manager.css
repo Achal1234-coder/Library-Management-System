@@ -1,0 +1,25 @@
+.about-book {
+    width: 10%;
+}
+img {
+    width: 100%;
+}
+.search {
+    padding: 10px;
+    height: 40px;
+    border-radius: 5px;
+    border: 1px solid grey ;
+}
+.main {
+    margin-top: 15vh;
+    text-align: center;
+}
+.issue-table {
+    margin-top: 15px;
+}
+
+.flex {
+    display: flex;
+    gap: 15px;
+    margin-left: 20px;
+}

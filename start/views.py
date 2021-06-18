@@ -1,54 +1,111 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .forms import RegisterStudentForm, LoginStudentForm
-from .models import RegistrationStudent
-from django.core.exceptions import ObjectDoesNotExist
 from django.contrib import messages
+from django.contrib.auth import authenticate, logout, login
+from manager.models import IssueBook
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
+from book.models import Books
 
 
 def home_view(request):
     ''' this function render the home.html '''
 
+    if request.user.is_authenticated:
+
+        if request.user.is_superuser:
+
+            return redirect('manager:choice')
+        else:
+
+            return redirect('start:read')
+
     return render(request, 'start/home.html', {})
 
 
+@login_required(login_url='manager:login')
 def register_student_view(request):
     ''' this function registered a student '''
 
-    form = RegisterStudentForm(request.POST or None)
-    if form.is_valid():
-        try:   # if id exist it return message error
-            id = request.POST.get('student_id')
-            RegistrationStudent.objects.get(student_id=id)
-            messages.error(request, 'You are already Registered')
-        except ObjectDoesNotExist:
-            # if try through exception then it check if and else block
+    if request.user.is_superuser:
 
-            password = request.POST.get('password')
-            confirm_password = request.POST.get('confirm_password')
-            if password != confirm_password:
-                messages.error(request, 'Password not match')
-            else:
-                obj = RegistrationStudent.objects.create(
-                    student_name=request.POST.get('student_name'),
-                    student_id=request.POST.get('student_id'),
-                    password=request.POST.get('password')
-                    )
-                obj.save()
-                messages.success(request, 'Registration Successful')
-                form = RegisterStudentForm()
-    return render(request, 'start/register.html', {'form': form})
+        form = RegisterStudentForm(request.POST or None)
+        if form.is_valid():
+
+            form.save()
+            messages.success(request, 'Registration Successful')
+            form = RegisterStudentForm()
+
+        return render(request, 'start/register.html', {'form': form})
+    else:
+
+        return HttpResponse('<h1>You are not authorized to see this page<h1>')
 
 
 def login_student_view(request):
     ''' this function check login status of student '''
 
-    form = LoginStudentForm(request.POST or None)
-    if form.is_valid():
-        id = request.POST.get('student_id')
-        obj = RegistrationStudent.objects.get(student_id=id)
-        if obj.password != request.POST.get('password'):
-            messages.error(request, 'Password Not Matched')
+    if request.user.is_authenticated:
+
+        if request.user.is_superuser:
+
+            return redirect('manager:choice')
         else:
-            print('Successful')
-            form = LoginStudentForm()
+
+            return redirect('start:read')
+
+    form = LoginStudentForm(request.POST or None)
+
+    if request.method == 'POST':
+
+        username = request.POST.get('student_name')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+
+            login(request, user)
+            return redirect('start:read')
+        else:
+
+            print('failed')
+
     return render(request, 'start/login.html', {'form': form})
+
+
+@login_required(login_url='start:login')
+def logout_student_view(request):
+    ''' this function logout the student '''
+
+    if request.user.is_superuser:
+        return redirect('manager:choice')
+
+    print('hello')
+    logout(request)
+    return redirect('start:login')
+
+
+@login_required(login_url='start:login')
+def issued_view(request):
+    ''' this function list out the issued book by current user '''
+
+    if request.user.is_superuser:
+        return redirect('manager:choice')
+
+    list_of_book = IssueBook.objects.filter(student_name=request.user)
+    return render(request, 'start/issued.html', {'list_of_book': list_of_book})
+
+
+@login_required(login_url='start:login')
+def read_view(request):
+    ''' this function work to read all books '''
+
+    book_obj = Books.objects.all()
+    return render(request, 'start/read.html', {'book_obj': book_obj})
+
+
+@login_required(login_url='start:login')
+def search_view(request):
+    book = request.GET.get('book_search')
+    book_obj = Books.objects.filter(book_name=book)
+    return render(request, 'start/read.html', {'book_obj': book_obj})

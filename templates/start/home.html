@@ -1,22 +1,43 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Home</title>
-        <style>
-            input {
-                padding: 10px;
-            }
-            form {
-                text-align: center;
-            }
-        </style>
+        <title>Library Management System</title>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'css/base1.css' %}">
+        {% block head %}
+        <link rel="stylesheet" href="{% static 'css/home.css' %}">
+        {% endblock %}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     </head>
     <body>
-        <form>
-            <a href="register" target="_blank"><input type="button" value='Register as Student'></a>
-            <a href="login" target="_blank"><input type='button' value='Log-in as Student'></a>
-            <a href="Register" target="_blank"><input type="button" value="Register as Book-Manager"></a>
-            <a href="login-manager" target="_blank"><input type="button" value='Log-in as Book-Manager'></a>
-        </form>
+
+        <header>
+            <nav>
+                <h1>Library Management System</h1>
+            </nav>
+        </header>
+
+        {% block content %}
+
+        <main class="container">
+
+            <div class="block">
+                <figure class="shadow">
+                    <img src="{% static 'image/student.png' %}" alt="student image">
+                    <a href="login" target="_blank"><button type="button" class="btn btn-primary btn-block">Log-in as Student</button></a>
+                </figure>
+                <figure class="shadow">
+                    <img src="{% static 'image/admin1.png' %}" alt="admin image">
+                    <a href="manager/login" target="_blank"><button type="button" class="btn btn-primary btn-block">Log-in as Manager</button></a>
+                </figure>
+            </div>
+
+        </main>
+
+        {% endblock %}
     </body>
 </html>

@@ -1,0 +1,46 @@
+{% extends 'start/home.html' %}
+
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/issued.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="main">
+
+    <div class="flex">
+        <h3 class="text text-info">{{ request.user }}</h3>
+        <form method="POST" action="{% url 'start:logout' %}">{% csrf_token %}
+            <input type="submit" value="LogOut" class="btn btn-info">
+        </form>
+        <a href="{% url 'start:issued' %}"><button type="button" class="btn btn-info">Issued Book</button></a>
+    </div>
+
+    <h1 class="head">List of Issued Books</h1>
+
+    <table class="table table-striped">
+
+        <thead>
+            <tr>
+                <th>Student Name</th>
+                <th>Book Name</th>
+                <th>Book Id</th>
+            </tr>
+        </thead>
+
+        {% for issue in list_of_book %}
+        <tbody>
+            <tr>
+                <td>{{ issue.student_name }}</td>
+                <td>{{ issue.book_name }}</td>
+                <td>{{ issue.book_id}}</td>
+            </tr>
+        </tbody>
+        {% endfor %}
+
+    </table>
+
+</div>
+{% endblock %}

@@ -1,42 +1,51 @@
 from django import forms
-from .models import RegistrationStudent
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
 
-class RegisterStudentForm(forms.Form):
-    ''' Make a form named RegisterStudentForm '''
+class RegisterStudentForm(UserCreationForm):
+    ''' Make a register form named RegisterStudentForm '''
 
-    student_name = forms.CharField(max_length=30)
-    student_id = forms.IntegerField()
-    password = forms.CharField(widget=forms.PasswordInput())
-    confirm_password = forms.CharField(widget=forms.PasswordInput())
+    username = forms.CharField(
+                    max_length=30,
+                    label='',
+                    widget=forms.TextInput(attrs={'placeholder': 'Name',
+                                                  'class': 'input-text'})
+                )
+    email = forms.EmailField(
+                    max_length=30,
+                    label='',
+                    widget=forms.TextInput(attrs={'placeholder': 'Email',
+                                                  'class': 'input-text'})
+                )
+    password1 = forms.CharField(
+                widget=forms.PasswordInput(attrs={'placeholder': 'Password',
+                                                  'class': 'input-text'}),
+                label=''
+            )
+    password2 = forms.CharField(
 
-    def clean_student_name(self):
-        ''' this function check the validation of student_name field '''
-
-        name = self.cleaned_data.get('student_name')
-        if len(name) < 3 or name is None:
-            raise forms.ValidationError('Not valid')
-        else:
-            return name
-
-    def clean_password(self):
-        ''' this function check the validation of password field '''
-
-        password = self.cleaned_data.get('password')
-        if len(password) < 5:
-            raise forms.ValidationError('Password to short')
-        else:
-            return password
-
-
-class LoginStudentForm(forms.ModelForm):
-    ''' Make a form named RegisterStudentForm '''
-    
-    password = forms.CharField(max_length=20, widget=forms.PasswordInput())
+            widget=forms.PasswordInput(attrs={'placeholder': 'ConfirmPassword',
+                                              'class': 'input-text'}),
+            label=''
+            )
 
     class Meta:
-        model = RegistrationStudent
-        fields = [
-            'student_id',
-            'password'
-        ]
+        model = User
+        fields = ['username', 'email', 'password1']
+
+
+class LoginStudentForm(forms.Form):
+    ''' Make a login form named LoginStudentForm '''
+
+    student_name = forms.CharField(
+                    max_length=30,
+                    label='',
+                    widget=forms.TextInput(attrs={'placeholder': 'Name',
+                                                  'class': 'input-text'})
+                )
+    password = forms.CharField(
+                widget=forms.PasswordInput(attrs={'placeholder': 'Password',
+                                                  'class': 'input-text'}),
+                label=''
+            )

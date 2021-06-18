@@ -1,21 +1,27 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>
-        </title>
-    </head>
-    <body>
-        <h1>Registration of Book-Manager</h1>
-        <form method="POST">{% csrf_token %}
-            {{ form.as_p }}
-            {% if messages %}
-            <ul class="messages">
-                {% for message in messages %}
-                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                {% endfor %}
-            </ul>
-            {% endif %}
-            <input type="submit" value="Submit" />
-        </form>
-    </body>
-</html>
+{% extends 'start/home.html' %}
+
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/login1.css' %}">
+{% endblock %}
+
+{% block content %}
+    <main class="container main">
+        <div class="form-container">
+            <h1>Log-In Manager</h1>
+
+            <form method="POST" class="forms">{% csrf_token %}
+                    {{ form.as_p }}
+                {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                    <li>{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                <input type="submit" value="Log-In" class="btn btn-info btn-block">
+            </form>
+        </div>
+    </main>
+{% endblock %}

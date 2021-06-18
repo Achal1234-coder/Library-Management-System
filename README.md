@@ -1,24 +1,24 @@
-# Django User Story of Library Management System Project
+# Django Library Management System Project
 
+# How to run the Project
 
-## Personas
+To run the Project First install all the requirement in requirement.txt and start the virtual environment
+then run the command
 ```
-Student      :- The person who issue a book from library.
-Book Manager :- The person who manage a book in library.
-```
-## User Story
-```
-* As a Student *ISBT  see all the books.
-* As a Student *ISBT register as a reader of books.
-* As a Book Manager *ISBT add another book.
-* As a Book Manager *ISBT Delete a book.
-* As a Book Manager *ISBT Udate a book.
-* As a Book Manager *ISBT Read a book.
-```
-## Bonus
+python3 manage.py runserver
 
 ```
-* As a Student *ISBT search a book.
-* As a Student *ISBT change my Password
+
+# Database requirements
 ```
-**Note**:- *ISBT = I should be able to
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'Django-Project',
+        'USER': 'achal',
+        'PASSWORD': 'achal"123',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+    }
+}
+```

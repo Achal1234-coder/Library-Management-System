@@ -1,19 +1,39 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>
-        </title>
-    </head>
-    <body>
+{% include 'Manager/choice.html' %}
+
+<div class="main">
+
+
         <h1>All Books in library</h1>
-        <form method="POST">{% csrf_token %}
-            {% for book in Book_obj %}
-            <br>
-                {{ book.Book_Name }}
-                {{ book.Writter }}
-                {{ book.Published_Year }}
-                {{ book.No_of_Book}}
-            {% endfor %}
+        <form name="myform" method="GET" action="{% url 'book:search' %}" class=" forms">
+            <input type="text" name="book_search" placeholder="Search" class="search">
+            <button class="btn btn-success" type="submit">Search</button>
+        </form>
+            <table class="table table-striped issue-table">
+                <thead>
+                    <tr>
+                        <th>Book Name</th>
+                        <th>Book Author</th>
+                        <th>Book Id</th>
+                        <th>No of book</th>
+                        <th>Image</th>
+                    </tr>
+                </thead>
+                {% for book in book_obj %}
+                <tbody>
+                    <tr>
+                        <td>{{ book.book_name }}</td>
+                        <td>{{ book.author }}</td>
+                        <td>{{ book.book_id }}</td>
+                        <td class="about-book"><img class="img" src="{{ book.image_of_book.url }}" alt="Book image"></td>
+                        <td>{{ book.no_of_book}}</td>
+                        {% if request.user.is_superuser %}
+                            <td><a href="{% url 'book:update' book.id %}"><button type="button" class="btn btn-info">Update</button></a></td>
+                            <td><a href="{% url 'book:delete' book.id %}"><button type="button" class="btn btn-danger">Delete</button></a></td>
+                        {% endif %}
+                    </tr>
+                </tbody>
+                {% endfor %}
+            </table>
             {% if messages %}
             <ul class="messages">
                 {% for message in messages %}
@@ -21,6 +41,4 @@
                 {% endfor %}
             </ul>
             {% endif %}
-        </form>
-    </body>
-</html>
+</div>

@@ -1,20 +1,43 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Home</title>
-        <style>
-            input {
-                padding: 10px;
-            }
-            form {
-                text-align: center;
-            }
-        </style>
-    </head>
-    <body>
-        <form>
-            <a href="create-book" target="_blank"><input type="button" value='Create a New Book'></a>
-            <a href="Read" target="_blank"><input type='button' value='See all Books'></a>
-        </form>
-    </body>
-</html>
+{% extends 'start/home.html' %}
+{% load static %}
+{% block head %}
+
+<link rel="stylesheet" href="{% static 'css/login1.css' %}">
+<link rel="stylesheet" href="{% static 'css/choice1.css' %}">
+<link rel="stylesheet" href="{% static 'css/read-manager.css' %}">
+
+{% endblock %}
+
+{% block content %}
+
+<main>
+
+    {% if request.user.is_superuser %}
+    <div class="nav">
+        <div class="dropdown div1">
+            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">Issue</button>
+            <div class="dropdown-menu">
+                <a href="{% url 'manager:issue' %}" class="dropdown-item text text-info">Issue a Book</a>
+                <a href="{% url 'manager:viewissue' %}" class="dropdown-item text text-info">Saw Issued Books</a>
+            </div>
+        </div>
+        <div class="dropdown div1">
+            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">Book</button>
+            <div class="dropdown-menu">
+                <a href="{% url 'book:create' %}" class="dropdown-item text text-info">Create a New Book</a>
+                <a href="{% url 'book:read' %}" class="dropdown-item text text-info">See all Books</a>
+            </div>
+        </div>
+        <div  class="div2">
+            <a href="{% url 'start:register' %}"><input type="button" value='Register Student' class="btn btn-info"></a>
+        </div>
+        <div  class="div1">
+            <form method="POST" action="{% url 'manager:logout' %}" class="function">{% csrf_token %}
+                <input type="submit" value="LogOut" class="btn btn-info">
+            </form>
+        </div>
+    </div>
+    {% endif %}
+
+</main>
+{% endblock %}

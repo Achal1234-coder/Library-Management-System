@@ -1,0 +1,26 @@
+.nav {
+    display: flex;
+    flex-wrap: wrap;
+    height: 50px;
+    width: 50%;
+    gap: 7px;
+    margin: auto;
+    margin-top: 6vh;
+}
+
+.div1 {
+    flex: 1;
+}
+.div2{
+    flex: 1.3;
+}
+
+@media all and (max-width: 800px){
+    .nav {
+        width: 95%;
+    }
+    .div2 {
+        flex: 1.6;
+    }
+
+}
