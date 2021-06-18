@@ -15,7 +15,9 @@ Book Manager :- The person who manage a book in library.
 * As a Book Manager *ISBT Delete a book.
 * As a Book Manager *ISBT Udate a book.
 * As a Book Manager *ISBT Read a book.
-* As a Book Manager *ISBT return a book
+* As a Book Manager *ISBT return a book.
+* As a Book Manager *ISBT issue a book to the student.
+* As a Book Manager *ISBT see all the issued books
 ```
 ## Bonus
 
