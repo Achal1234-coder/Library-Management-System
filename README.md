@@ -22,3 +22,9 @@ DATABASES = {
     }
 }
 ```
+# Supperuser NAME
+
+dean
+# Supperuser PASSWORD
+
+dean"123
