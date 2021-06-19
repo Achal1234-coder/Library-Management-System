@@ -1,2 +1,2 @@
-DROP DATABASE Django-Project;
+DROP DATABASE library;
 DROP USER achal;
