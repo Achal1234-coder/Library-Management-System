@@ -2,29 +2,60 @@
 
 # How to run the Project
 
-To run the Project First install all the requirement in requirement.txt and start the virtual environment
-then run the command
+## create virtual environment
+
+```
+virtualenv project
+```
+
+## Activate virtualenv to run this command
+
+```
+source project/bin/activate
+```
+## Clone the Repository by this command
+```
+git clone <copied_url>
+```
+## To install the requirement of this project run this command
+```
+pip3 install -r requirements.txt
+```
+## Change the directory to repository run this command for open postgre Sql
+```
+sudo -u postgres psql
+```
+## To create a database run this command
+```
+ \i create.sql
+```
+## Quit the database
+```
+exit
+```
+## Makemigartion command
+```
+python3 manage.py makemigartions
+```
+## And run migrate command but it is noted that manage.py should inside in that directory
+```
+python3 manage.py migrate
+```
+## Create Super user
+```
+python3 manage.py createsuperuser
+```
+## run the project by this command
 ```
 python3 manage.py runserver
 
 ```
 
-# Database requirements
+## Drop the Database
 ```
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'Django-Project',
-        'USER': 'achal',
-        'PASSWORD': 'achal"123',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
-    }
-}
+\i drop.sql
 ```
-# Supperuser NAME
-
-dean
-# Supperuser PASSWORD
-
-dean"123
+## deactivate virtualenv
+```
+deactivate
+```
