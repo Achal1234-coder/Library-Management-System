@@ -89,6 +89,8 @@ def delete_book_view(request, book_id):
 
 @login_required(login_url='start:home')
 def search_view(request):
+    ''' this function search a specific book and render it '''
+    
     book = request.GET.get('book_search')
     book_obj = Books.objects.filter(book_name=book)
     return render(request, 'book/read.html', {'book_obj': book_obj})
