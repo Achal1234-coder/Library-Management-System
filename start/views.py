@@ -56,7 +56,7 @@ def login_student_view(request):
 
     form = LoginStudentForm(request.POST or None)
 
-    if request.function == 'POST':
+    if request.method == 'POST':
 
         username = request.POST.get('student_name')
         password = request.POST.get('password')
